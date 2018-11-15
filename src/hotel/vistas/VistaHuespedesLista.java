@@ -20,58 +20,55 @@ import javax.swing.table.DefaultTableModel;
  * @author clara
  */
 public class VistaHuespedesLista extends javax.swing.JInternalFrame {
-private ArrayList<Huesped> listaHuesped;
-private DefaultTableModel modelo;
+
+    private ArrayList<Huesped> listaHuesped;
+    private DefaultTableModel modelo;
     /**
      * Creates new form VistaHabitaciones
      */
-     private Conexion conexion;
+    private Conexion conexion;
     private HuespedData huespedData;
-    
+
     public VistaHuespedesLista() {
         initComponents();
-        
-       
+
         try {
             conexion = new Conexion();
-            modelo=new DefaultTableModel();
-           
-          headersTablaHuespedes();  
-        cargaDatos();
-            
+            modelo = new DefaultTableModel();
+
+            headersTablaHuespedes();
+            cargaDatos();
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(HabitacionData.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        
-          
-    
- }
-      public void borraFilasTabla(){
-
-            int a =modelo.getRowCount()-1;
-           
-            for(int i=a;i>=0;i--){
-                modelo.removeRow(i );
-                
-            }
-      }
-      
-       public void cargaDatos(){
-            
-        
-         huespedData = new HuespedData(conexion);
-          
-           
-        //Llenar filas
-        listaHuesped = (ArrayList)huespedData.obtenerHuespedes();
-        for(Huesped h:listaHuesped){
-        
-            modelo.addRow(new Object[]{h.getHuespedDni(),h.getHuespedNombre(),h.getHuespedDomicilio(),h.getHuespedEmail(),h.getHuespedCelular()});
         }
-        
-     
-    }   
- public void headersTablaHuespedes(){
+
+    }
+
+    public void borraFilasTabla() {
+
+        int a = modelo.getRowCount() - 1;
+
+        for (int i = a; i >= 0; i--) {
+            modelo.removeRow(i);
+
+        }
+    }
+
+    public void cargaDatos() {
+
+        huespedData = new HuespedData(conexion);
+
+        //Llenar filas
+        listaHuesped = (ArrayList) huespedData.obtenerHuespedes();
+        for (Huesped h : listaHuesped) {
+
+            modelo.addRow(new Object[]{h.getHuespedDni(), h.getHuespedNombre(), h.getHuespedDomicilio(), h.getHuespedEmail(), h.getHuespedCelular()});
+        }
+
+    }
+
+    public void headersTablaHuespedes() {
         //Titulos de Columnas
         ArrayList<Object> columnas = new ArrayList<Object>();
         columnas.add("DNI");
@@ -79,13 +76,13 @@ private DefaultTableModel modelo;
         columnas.add("Domicilio");
         columnas.add("E-mail");
         columnas.add("Telefono");
-        
-        
-        for(Object it:columnas){
+
+        for (Object it : columnas) {
             modelo.addColumn(it);
         }
-         jTable1.setModel(modelo);
+        jTable1.setModel(modelo);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -169,7 +166,7 @@ private DefaultTableModel modelo;
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
+                        .addGap(53, 53, 53)
                         .addComponent(titleListaHuespedDni, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(listaHuespedDni, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -179,7 +176,7 @@ private DefaultTableModel modelo;
                         .addGap(278, 278, 278)
                         .addComponent(titleListaHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(50, 50, 50)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 854, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
@@ -188,14 +185,14 @@ private DefaultTableModel modelo;
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(titleListaHuesped)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(titleListaHuespedDni)
                     .addComponent(listaHuespedDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ListaHuespedBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addGap(50, 50, 50))
         );
 
         pack();
@@ -207,33 +204,38 @@ private DefaultTableModel modelo;
 
     private void ListaHuespedBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaHuespedBuscarActionPerformed
         // TODO add your handling code here:
-        borraFilasTabla();
-       if (listaHuespedDni.getText().isEmpty()) {
+       // 
+        if (listaHuespedDni.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, " Dni no puede estar vacio ");
-            
+            borraFilasTabla();
+            cargaDatos();
+
         } else if (!validarCampoDni(listaHuespedDni.getText())) {
             JOptionPane.showMessageDialog(null, " Dni solo ingrese valores numéricos ");
             listaHuespedDni.setText("");
             cargaDatos();
-        }else{ 
-      int buscarHuespedDni = Integer.parseInt(listaHuespedDni.getText());
+        } else {
+
+            int buscarHuespedDni = Integer.parseInt(listaHuespedDni.getText());
             Huesped huesped = huespedData.buscarHuesped(buscarHuespedDni);
 
-            if(huesped != null) {
-        modelo.addRow(new Object[]{huesped.getHuespedDni(),huesped.getHuespedNombre(),huesped.getHuespedDomicilio(),huesped.getHuespedEmail(),huesped.getHuespedCelular()});
-      }else{
+            if (huesped != null) {
+               borraFilasTabla();
+                modelo.addRow(new Object[]{huesped.getHuespedDni(), huesped.getHuespedNombre(), huesped.getHuespedDomicilio(), huesped.getHuespedEmail(), huesped.getHuespedCelular()});
+            } else {
                 JOptionPane.showMessageDialog(null, "El DNI no existe, o ha introducido caracteres no válidos. Solo ingrese números. ");
-            }  
-      }   
-       }
-     private boolean validarCampoDni(String value) {
+            }
+        }
+    }
+
+    private boolean validarCampoDni(String value) {
         try {
             int num = Integer.parseInt(value);
             return true;
         } catch (Exception ex) {
             return false;
-        }   
-        
+        }
+
     }//GEN-LAST:event_ListaHuespedBuscarActionPerformed
 
 

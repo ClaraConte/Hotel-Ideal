@@ -145,7 +145,7 @@ public class VistaTiposHabitaciones extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
+                        .addGap(96, 96, 96)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(tipoHabitacionGuardar)
@@ -186,7 +186,7 @@ public class VistaTiposHabitaciones extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
+                        .addGap(35, 35, 35)
                         .addComponent(textTipoHabitacionNombre))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -195,7 +195,7 @@ public class VistaTiposHabitaciones extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tipoHabitacionNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tipoHabitacionId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textTipoHabitacionPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tipoHabitacionPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -210,7 +210,7 @@ public class VistaTiposHabitaciones extends javax.swing.JInternalFrame {
                     .addComponent(tipoHabitacionEditar)
                     .addComponent(tipoHabitacionLimpiar)
                     .addComponent(tipoHabitacionEliminar))
-                .addGap(52, 52, 52))
+                .addGap(66, 66, 66))
         );
 
         pack();
@@ -218,9 +218,9 @@ public class VistaTiposHabitaciones extends javax.swing.JInternalFrame {
 
     private void tipoHabitacionIdItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipoHabitacionIdItemStateChanged
         // TODO add your handling code here:
-        
+        TipoHabitacion habitacionPorTipo = (TipoHabitacion) tipoHabitacionId.getSelectedItem();
         if(tipoHabitacionId.getSelectedIndex() > 0){
-            TipoHabitacion tipoHabitacion = tipoHabitacionData.buscarTipoHabitacion((int)(tipoHabitacionId.getSelectedIndex()));
+            TipoHabitacion tipoHabitacion = tipoHabitacionData.buscarTipoHabitacion(habitacionPorTipo.getTipoHabitacionId());
             if (tipoHabitacion != null) {
                 String personas = String.valueOf(tipoHabitacion.getTipoHabitacioCapacidadMax());
                 tipoHabitacionNombre.setText(tipoHabitacion.getTipoHabitacionNombre());
@@ -257,7 +257,7 @@ public class VistaTiposHabitaciones extends javax.swing.JInternalFrame {
 
     private void tipoHabitacionEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoHabitacionEditarActionPerformed
         // TODO add your handling code here:
-
+        TipoHabitacion habitacionPorTipo = (TipoHabitacion) tipoHabitacionId.getSelectedItem();
         if (tipoHabitacionId.getSelectedIndex() == 0){
                 JOptionPane.showMessageDialog(null, "Para crear un tipo de habitación, seleccione la opción 'Nuevo' ");
         } else if(tipoHabitacionNombre.getText().isEmpty()) {
@@ -267,7 +267,7 @@ public class VistaTiposHabitaciones extends javax.swing.JInternalFrame {
         } else if(!validarCampoPrecio(tipoHabitacionPrecio.getText())) {
             JOptionPane.showMessageDialog(null, " Precio por noche solo ingrese valores numéricos");
         } else {
-            TipoHabitacion tipoHabitacion = tipoHabitacionData.buscarTipoHabitacion((int)tipoHabitacionId.getSelectedIndex());
+            TipoHabitacion tipoHabitacion = tipoHabitacionData.buscarTipoHabitacion(habitacionPorTipo.getTipoHabitacionId());
             if(tipoHabitacion!=null){
                 int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro que quiere guardar los cambios?", "Alerta!", JOptionPane.YES_NO_OPTION);
                 if (resp != 1) {
@@ -295,11 +295,13 @@ public class VistaTiposHabitaciones extends javax.swing.JInternalFrame {
 
     private void tipoHabitacionEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoHabitacionEliminarActionPerformed
         // TODO add your handling code here:
+        TipoHabitacion habitacionPorTipo = (TipoHabitacion) tipoHabitacionId.getSelectedItem();
         int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro que quiere borrar este tipo de habitacion?", "Alerta!", JOptionPane.YES_NO_OPTION);
         if (resp != 1) {
-            tipoHabitacionData.borrarTipoHabitacion((int)tipoHabitacionId.getSelectedIndex());
+            tipoHabitacionData.borrarTipoHabitacion(habitacionPorTipo.getTipoHabitacionId());
             JOptionPane.showMessageDialog(null, "Tipo de habitacion borrado");
-            tipoHabitacionId.removeItemAt((int)tipoHabitacionId.getSelectedIndex());
+            vaciarCampos();
+           // tipoHabitacionId.removeItemAt((int)tipoHabitacionId.getSelectedItem());
         } else {
             JOptionPane.showMessageDialog(null, "Accion cancelada");
         }
