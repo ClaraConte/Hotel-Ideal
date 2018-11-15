@@ -68,6 +68,7 @@ public class ReservasData {
             String sql = "SELECT habitacionId FROM reservas WHERE "
                     + "(((? BETWEEN reservasFechaCheckin AND reservasfechaCheckout) OR (? BETWEEN reservasFechaCheckin AND reservasfechaCheckout))"
                     + " OR( ? < reservasFechaCheckin AND ? > reservasfechaCheckout))"
+                    + " AND reservasEstado = 1"
                     + " AND habitacionId = ?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setDate(1, java.sql.Date.valueOf(checkIn));
