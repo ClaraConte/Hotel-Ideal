@@ -279,12 +279,13 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
                 if (resp != 1) {
                     int Dni = Integer.parseInt(huespedDni.getText());
                     huespedData.borrarHuesped(Dni);
-
-                    vaciarCampos();
-
-                    JOptionPane.showMessageDialog(huespedBorrar, "Huesped borrado");
+                    if(huespedData.isHuespedDni(Dni)){
+                        JOptionPane.showMessageDialog(null, "No se puede borrar el huesped, tiene registros asociados en la tabla resrva");
+                        vaciarCampos();
+                    }else{JOptionPane.showMessageDialog(null, "Huesped borrado");}
+                    
                 } else if (resp != 2) {
-                    JOptionPane.showMessageDialog(huespedBorrar, "Accion cancelada");
+                    JOptionPane.showMessageDialog(null, "Accion cancelada");
                     vaciarCampos();
                 }
     }//GEN-LAST:event_huespedBorrarActionPerformed
